@@ -1,0 +1,25 @@
+.content {
+    width: 223px;
+    height: 224px;
+    cursor: pointer;
+}
+
+//Header
+.header {
+    position: relative;
+    height: 50px;
+}
+
+.back-btn {
+    width: 50px;
+    height: 100%;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.header-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
