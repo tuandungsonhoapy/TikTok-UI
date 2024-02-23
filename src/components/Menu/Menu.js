@@ -9,7 +9,7 @@ import { useMemo, useState } from 'react';
 
 const cx = classNames.bind(styles);
 
-function Menu({ children, MENU, onChange }) {
+function Menu({ children, MENU, hideOnClick = false, onChange }) {
     const [history, setHistory] = useState([{ data: MENU }]);
 
     const { menu, title } = useMemo(() => {
@@ -35,7 +35,7 @@ function Menu({ children, MENU, onChange }) {
 
     const renderMenuItems = () => {
         return (
-            <ul>
+            <ul className={cx('box_menu')}>
                 {menu.map((item, index) => {
                     return <MenuItem item={item} key={index} onClick={handleClickMenuItem} />;
                 })}
@@ -49,11 +49,12 @@ function Menu({ children, MENU, onChange }) {
             offset={[12, 10]}
             interactive
             placement="bottom-end"
+            hideOnClick={hideOnClick}
             render={(attrs) => (
                 <div className={cx('content')} tabIndex="-1" {...attrs}>
                     <PopperWrapper>
                         {title && title.length > 0 && <Header title={title} onBack={handleBack} />}
-                        {renderMenuItems()}
+                        <div className={cx('menu-body')}>{renderMenuItems()}</div>
                     </PopperWrapper>
                 </div>
             )}

@@ -20,6 +20,7 @@ import Menu from '~/components/Menu';
 import { IconInBox, IconMessages } from '~/components/Icons';
 import Image from '~/components/Image';
 import Search from '../Search/Search';
+import routesConfig from '~/config/routes';
 
 const cx = classNames.bind(styles);
 
@@ -103,7 +104,9 @@ function Header() {
     return (
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
-                <img src={images.logo} alt="Tiktok" />
+                <Link to={routesConfig.home} className={cx('logo_tiktok')}>
+                    <img src={images.logo} alt="Tiktok" />
+                </Link>
                 <Search />
                 <div className={cx('actions')}>
                     {currentUser ? (
