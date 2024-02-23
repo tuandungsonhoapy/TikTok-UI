@@ -83,3 +83,11 @@
     padding: 14px 16px;
     min-width: 140px;
 }
+
+.bordered {
+    border: 1px solid rgba(22, 24, 35, 0.12);
+
+    &:hover {
+        background-color: rgba(22, 24, 35, 0.03);
+    }
+}

@@ -19,6 +19,7 @@ function Button({
     leftIcon,
     rightIcon,
     onClick,
+    bordered,
     ...passProps
 }) {
     let Comp = 'button';
@@ -53,6 +54,7 @@ function Button({
         rounded,
         small,
         large,
+        bordered,
     });
 
     return (

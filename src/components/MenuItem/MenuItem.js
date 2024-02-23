@@ -12,7 +12,7 @@ function MenuItem({ item, onClick }) {
         Component = 'button';
     }
     return (
-        <li className={cx('itemWrapper')} onClick={() => onClick(item)}>
+        <li className={cx('itemWrapper', { separate: item.separate })} onClick={() => onClick(item)}>
             <Component className={classes} to={item.to}>
                 {item.icon && <img className={cx('menu-item-img')} src={item.icon} alt="icon" />}
                 <span className={cx('menu-item-title')}>{item.title}</span>
