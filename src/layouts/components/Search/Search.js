@@ -1,5 +1,5 @@
 import Tippy from '@tippyjs/react/headless';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark, faSpinner, faMagnifyingGlass, faCircleNotch } from '@fortawesome/free-solid-svg-icons';
@@ -15,27 +15,27 @@ const cx = classNames.bind(styles);
 function Search() {
     const [searchResult, setSearchResult] = useState([]);
     const [searchValue, setSearchValue] = useState('');
-    const [showResult, setShowResult] = useState(true);
+    const [showResult, setShowResult] = useState(false);
     const [loading, setLoading] = useState(false);
     let refInput = useRef();
 
-    const debounced = useDebounce(searchValue, 500);
+    const debouncedValue = useDebounce(searchValue, 500);
 
     useEffect(() => {
-        if (!debounced.trim()) {
+        if (!debouncedValue.trim()) {
             setSearchResult([]);
             return;
         }
 
         const fetchApi = async () => {
             setLoading(true);
-            const result = await request.search(debounced, 'less');
+            const result = await request.search(debouncedValue, 'less');
             setSearchResult(result);
             setLoading(false);
         };
 
         fetchApi();
-    }, [debounced]);
+    }, [debouncedValue]);
 
     const handleClickClear = () => {
         setSearchValue('');
@@ -54,22 +54,27 @@ function Search() {
         }
     };
 
+    const renderResult = useCallback(
+        (attrs) => (
+            <div className={cx('search-result')} tabIndex="-1" {...attrs}>
+                <PopperWrapper>
+                    <h4 className={cx('search-title')}>Accounts</h4>
+                    {searchResult.map((item) => {
+                        return <AccountItem key={item.id} data={item} />;
+                    })}
+                </PopperWrapper>
+            </div>
+        ),
+        [searchResult],
+    );
+
     return (
         <div>
             <Tippy
                 interactive
                 visible={showResult && searchResult.length > 0}
                 placement="bottom-end"
-                render={(attrs) => (
-                    <div className={cx('search-result')} tabIndex="-1" {...attrs}>
-                        <PopperWrapper>
-                            <h4 className={cx('search-title')}>Accounts</h4>
-                            {searchResult.map((item) => {
-                                return <AccountItem key={item.id} data={item} />;
-                            })}
-                        </PopperWrapper>
-                    </div>
-                )}
+                render={renderResult}
                 onClickOutside={handleClickOutside}
             >
                 <div className={cx('search')}>

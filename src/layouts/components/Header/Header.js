@@ -14,13 +14,13 @@ import { Link } from 'react-router-dom';
 
 import styles from './Header.module.scss';
 import images from '~/assets/images';
-import AccountItem from '../../../AccountItem/AccountItem';
+import AccountItem from '~/components/AccountItem';
 import Button from '~/components/Button';
 import Menu from '~/components/Menu';
 import { IconInBox, IconMessages } from '~/components/Icons';
 import Image from '~/components/Image';
 import Search from '../Search/Search';
-import routesConfig from '~/config/routes';
+import config from '~/config';
 
 const cx = classNames.bind(styles);
 
@@ -104,7 +104,7 @@ function Header() {
     return (
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
-                <Link to={routesConfig.home} className={cx('logo_tiktok')}>
+                <Link to={config.routes.home} className={cx('logo_tiktok')}>
                     <img src={images.logo} alt="Tiktok" />
                 </Link>
                 <Search />
